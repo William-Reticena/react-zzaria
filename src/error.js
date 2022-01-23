@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import { PureComponent } from 'react'
 import t from 'prop-types'
 
 class ErrorBoundary extends PureComponent {
@@ -8,12 +8,14 @@ class ErrorBoundary extends PureComponent {
     children: t.func.isRequired
   }
 
-  static getDerivedStateFromError () {
+  static getDerivedStateFromError (error) {
+    console.log('error getDerivedStateFromError: ', error.message)
     return { hasError: true }
   }
 
   componentDidCatch (error, info) {
     console.log('error:', error)
+    console.log('error:', info.componentStack)
   }
 
   render () {

@@ -1,26 +1,46 @@
-import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import MainPage from './pages/main'
-// import Login from './pages/login'
-import { CssBaseline, LinearProgress } from '@material-ui/core';
+import React, { lazy, Suspense, useEffect, useState, useContext } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { LinearProgress } from '@material-ui/core';
+import firebase from './services/firebase'
+import { AuthContext } from './contexts/auth'
 
-const MainPage = lazy(() => import('pages/main'))
-const Login = lazy(() => import('pages/login'))
+const MainPage = lazy(() => import('./pages/main'))
+const Login = lazy(() => import('./pages/login'))
 
-//74
-const App = () => (
-  <>
-    <CssBaseline />
+const App = ({ location }) => {
+  const { userInfo, setUserInfo, logout } = useContext(AuthContext)
+  const [didCheckUserIn, setDidCheckUserIn] = useState(false)
 
-    <BrowserRouter>
-      <Suspense fallback={<LinearProgress />}>
-        <Switch>
-          <Route path='/' component={MainPage} exact />
-          <Route path='/login' component={Login} />
-        </Switch>
-      </Suspense>
-    </BrowserRouter>
-  </>
-)
+  const { isUserLoggedIn } = userInfo
 
-export default App;
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log('dados do usuário:', user)
+      setUserInfo({
+        isUserLoggedIn: !!user,
+        user
+      })
+      setDidCheckUserIn(true)
+    })
+    window.logout = logout
+  }, [setUserInfo, logout])
+
+  if (!didCheckUserIn)
+  console.log('ainda não chegou')
+
+  if (isUserLoggedIn)
+    console.log('usuario logado')
+    if (location.pathname === '/login')
+      return <Redirect to='/' />
+
+  return (
+    <Suspense fallback={<LinearProgress />}>
+      <Switch>
+        <Route path='/' component={MainPage} exact />
+        <Route path='/login' component={Login} />
+      </Switch>
+    </Suspense>
+  )
+}
+
+export default App
