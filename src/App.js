@@ -18,20 +18,31 @@ const App = ({ location }) => {
       console.log('dados do usuário:', user)
       setUserInfo({
         isUserLoggedIn: !!user,
-        user
+        user: user && {
+          ...user,
+          firstName: user.displayName.split(' ')[0]
+        }
       })
       setDidCheckUserIn(true)
     })
     window.logout = logout
   }, [setUserInfo, logout])
 
-  if (!didCheckUserIn)
-  console.log('ainda não chegou')
+  if (!didCheckUserIn) {
+    console.log('ainda não checou')
+    return <LinearProgress />
+  }
 
-  if (isUserLoggedIn)
-    console.log('usuario logado')
-    if (location.pathname === '/login')
-      return <Redirect to='/' />
+  if (isUserLoggedIn && location.pathname === '/login')
+    return <Redirect to='/' />
+
+  if (!isUserLoggedIn && location.pathname !== '/login')
+    return <Redirect to='/login' />
+
+  // if (isUserLoggedIn)
+  //   console.log('usuario logado')
+  //   if (location.pathname === '/login')
+  //     return <Redirect to='/' />
 
   return (
     <Suspense fallback={<LinearProgress />}>

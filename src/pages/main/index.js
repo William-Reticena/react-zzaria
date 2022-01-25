@@ -1,25 +1,43 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React, { Suspense } from 'react'
+import { Switch, Route } from 'react-router-dom'
+import styled from 'styled-components'
+import { withStyles } from '@material-ui/core'
+import Header from './header'
 
-const routes = [
-  { path: '/rota1', content: 'Rota 1' },
-  { path: '/rota2', content: 'Rota 2' }
-]
+const ChoosePizzaSize = React.lazy(() => import('../choose-pizza-size'))
 
-const Main = () => (
-  <>
-    <h1>Main</h1>
+const Main = () => {
+  return (
+    <>
+      <Header />
 
-    <Switch>
-      {routes.map(route => (
-        <Route
-          key={route.path}
-          path={route.path}
-          render={() => <h2>{route.content}</h2>}
-        />
-      ))}
-    </Switch>
-  </>
-)
+      <Spacer />
+
+      <Content>
+       <Suspense fallback='Loading'>
+         <Switch>
+           <Route path='/' exact component={ChoosePizzaSize} />
+         </Switch>
+       </Suspense>
+      </Content>
+    </>
+  )
+}
+
+const Content = styled.main`
+  padding: 20px;
+`
+
+const style = (theme) => {
+  return {
+    main: theme.mixins.toolbar
+  }
+}
+
+const SpaceWrapper = (({ classes }) => (
+    <div className={classes.main} />
+))
+
+const Spacer = withStyles(style)(SpaceWrapper)
 
 export default Main

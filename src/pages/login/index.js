@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Button, Grid } from '@material-ui/core'
 import { AuthContext } from '../../contexts/auth'
-import { ReactComponent as Logo} from './logo-react-zzaria.svg'
+import { ReactComponent as Logo} from '../../images/logo-react-zzaria.svg'
 // import firebase from '../../services/firebase'
 
 const Login = () => {
