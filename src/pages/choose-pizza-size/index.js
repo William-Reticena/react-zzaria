@@ -1,89 +1,65 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Card,
-  CardActionArea as MaterialCardAction,
-  Divider as MaterialDivider,
   Grid,
   Typography,
 } from '@material-ui/core'
+import { H3, H4 } from '../../ui'
+import { sigularOrPlural } from '../../utils'
 import { AuthContext } from '../../contexts/auth'
 import pizzaSizes from '../../fake-data/pizzas-sizes'
+import PizzasGrid from '../../ui/pizzas-grid'
+import Divider from '../../ui/divider'
+import CardLink from '../../ui/card-link'
+
+import { CHOOSE_PIZZA_FLAVOURS } from '../../routes'
 
 const ChoosePizzaSize = () => {
   const { userInfo } = useContext(AuthContext)
 
   return (
     <>
-          <Grid container direction='column' alignItems='center'>
-          <Title variant='h3'>
-            O que vai ser hoje, {userInfo.user.firstName}? =)
-          </Title>
+      <Grid container direction='column' alignItems='center'>
+        <H3>
+          O que vai ser hoje, {userInfo.user.firstName}? =)
+        </H3>
 
-          <Title variant='h4'>
-            Escolha o tamanho da pizza
-          </Title>
-
-          <PizzasGrid>
-            {pizzaSizes.map((pizza) => (
-              <Grid item key={pizza.id} xs>
-                <Card>
-                  <CardActionArea to='/sabores-da-pizza'>
-                    <Pizza>
-                      <PizzaText>
-                        {pizza.size}cm
-                      </PizzaText>
-                    </Pizza>
-
-                    <Divider />
-
-                    <Typography variant='h5'>{pizza.name}</Typography>
-                    <Typography>
-                      {pizza.slices} fatias, {' '}
-                      {pizza.flavours} {' '}
-                      {sigularOrPlural(pizza.flavours, 'sabor', 'sabores')}
-                    </Typography>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
-          </PizzasGrid>
+        <H4>
+          Escolha o tamanho da pizza
+        </H4>
       </Grid>
+
+      <PizzasGrid>
+        {pizzaSizes.map((pizza) => (
+          <Grid item key={pizza.id} xs>
+            <Card>
+              <CardLink to={{
+                pathname: CHOOSE_PIZZA_FLAVOURS,
+                state: pizza
+              }}>
+                <Pizza>
+                  <PizzaText>
+                    {pizza.size}cm
+                  </PizzaText>
+                </Pizza>
+
+                <Divider />
+
+                <Typography variant='h5'>{pizza.name}</Typography>
+                <Typography>
+                  {pizza.slices} fatias, {' '}
+                  {pizza.flavours} {' '}
+                  {sigularOrPlural(pizza.flavours, 'sabor', 'sabores')}
+                </Typography>
+              </CardLink>
+            </Card>
+          </Grid>
+        ))}
+      </PizzasGrid>
     </>
   )
 }
-
-function sigularOrPlural (amount, singular, plural) {
-  return amount === 1 ? singular : plural
-}
-
-const Divider = styled(MaterialDivider)`
-  margin: 20px 0;
-  width: 100%;
-`
-
-const Title = styled(Typography).attrs({
-  gutterBottom: true,
-  align: true
-})``
-
-const PizzasGrid = styled(Grid).attrs({
-  container: true,
-  spacing: 2
-})`
-  padding: 20px;
-`
-
-const CardActionArea = styled(MaterialCardAction).attrs({
-  component: Link
-})`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  min-width: 250px;
-  padding: 20px 0;
-`
 
 const Pizza = styled.div`
   align-items: center;

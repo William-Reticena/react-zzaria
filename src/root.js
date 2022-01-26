@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 // import MainPage from './pages/main'
 // import Login from './pages/login'
-import { CssBaseline, createTheme, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import AuthProvider from './contexts/auth';
 import App from './App'
 
@@ -13,15 +14,17 @@ const theme = createTheme({
 })
 
 const Root = () => (
-  <ThemeProvider theme={theme}>
-    <AuthProvider>
-      <CssBaseline />
+  <MuiThemeProvider>
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <CssBaseline />
 
-      <BrowserRouter>
-        <Route component={App} />
-      </BrowserRouter>
-    </AuthProvider>
-  </ThemeProvider>
+        <BrowserRouter>
+          <Route component={App} />
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
+  </MuiThemeProvider>
 )
 
 export default Root
