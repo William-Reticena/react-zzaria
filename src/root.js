@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 // import MainPage from './pages/main'
 // import Login from './pages/login'
 import { CssBaseline, createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core';
@@ -18,6 +18,7 @@ const Root = () => (
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <CssBaseline />
+        <GlobalStyle />
 
         <BrowserRouter>
           <Route component={App} />
@@ -26,5 +27,13 @@ const Root = () => (
     </ThemeProvider>
   </MuiThemeProvider>
 )
+
+const GlobalStyle = createGlobalStyle`
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+`
 
 export default Root

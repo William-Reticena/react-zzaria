@@ -1,12 +1,12 @@
-import React, { useContext } from 'react'
+import React  from 'react'
 import styled from 'styled-components'
 import { Button, Grid } from '@material-ui/core'
-import { AuthContext } from '../../contexts/auth'
+import { useAuth } from '../../hooks'
 import { ReactComponent as Logo} from '../../images/logo-react-zzaria.svg'
 // import firebase from '../../services/firebase'
 
 const Login = () => {
-  const { login } = useContext(AuthContext)
+  const { login } = useAuth()
 
   return (
     <Container>
@@ -26,16 +26,16 @@ const Login = () => {
 }
 
 const Container = styled.div`
-  padding: 20px;
+  padding: ${({ theme }) => theme.spacing(3)}px;
 `
 
 const GitHubButton = styled(Button).attrs({ 
   variant: 'contained',
   fullWidth: true
 })`
-  font-size: 25px;
+  font-size: ${({ theme }) => theme.typography.h5.fontSize};
   max-width: 480px;
-  padding: 15px;
+  padding: ${({ theme }) => theme.spacing(2)}px;
   text-transform: none;
 `
 
