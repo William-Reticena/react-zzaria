@@ -5,6 +5,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 // import Login from './pages/login'
 import { CssBaseline, createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import AuthProvider from './contexts/auth';
+import OrderProvider from './contexts/order';
 import App from './App'
 
 const theme = createTheme({
@@ -17,12 +18,14 @@ const Root = () => (
   <MuiThemeProvider>
     <ThemeProvider theme={theme}>
       <AuthProvider>
-        <CssBaseline />
-        <GlobalStyle />
+        <OrderProvider>
+          <CssBaseline />
+          <GlobalStyle />
 
-        <BrowserRouter>
-          <Route component={App} />
-        </BrowserRouter>
+          <BrowserRouter>
+            <Route component={App} />
+          </BrowserRouter>
+        </OrderProvider>
       </AuthProvider>
     </ThemeProvider>
   </MuiThemeProvider>

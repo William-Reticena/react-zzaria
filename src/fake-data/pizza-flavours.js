@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default [
   {
-    id: 0,
+    id: '0',
     image: '/fake-data/images/pizza-calabreza.png',
     name: 'Calabresa',
     value: {
@@ -12,7 +12,7 @@ export default [
   },
 
   {
-    id: 0,
+    id: '0',
     image: '/fake-data/images/pizza-calabreza.png',
     name: 'Calabresa',
     value: {
@@ -23,7 +23,7 @@ export default [
   },
   
   {
-    id: 0,
+    id: '0',
     image: '/fake-data/images/pizza-calabreza.png',
     name: 'Calabresa',
     value: {
