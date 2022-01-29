@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import {
   IconButton,
   Menu,
   MenuItem,
-  Typography,
+  Typography
 } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
-import { HOME } from '../../routes'
-import { ReactComponent as MainLogo} from '../../images/logo-react-zzaria.svg'
+import Logo from './logo'
 import { useAuth } from '../../hooks'
-import { Link } from 'react-router-dom'
+import { HOME } from '../../routes'
 
-
-const HeaderCommon = () => {
+function HeaderCommon () {
   const [anchorElement, setAnchorElement] = useState(null)
   const { userInfo, logout } = useAuth()
 
@@ -24,6 +23,7 @@ const HeaderCommon = () => {
   const handleClose = () => {
     setAnchorElement(null)
   }
+
   return (
     <>
       <LogoContainer>
@@ -32,13 +32,16 @@ const HeaderCommon = () => {
         </LinkLogo>
       </LogoContainer>
 
-      <Typography color='inherit'>Olá {userInfo.user.firstName} =)</Typography>
+      <Typography color='inherit'>
+        Olá {userInfo.user.firstName} =)
+      </Typography>
+
       <IconButton color='inherit' onClick={handleOpenMenu}>
         <AccountCircle />
       </IconButton>
 
       <Menu
-        open={!!anchorElement}
+        open={Boolean(anchorElement)}
         onClose={handleClose}
         anchorEl={anchorElement}
       >

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Footer from '../../ui/footer'
+import { Footer } from '../../ui'
 
 function FooterCheckout ({ children, justifyContent }) {
   return (

@@ -1,19 +1,22 @@
 import React from 'react'
+import t from 'prop-types'
 import { withRouter, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Button as MaterialButton,
   Grid,
-  Typography,
+  Typography
 } from '@material-ui/core'
 import { useAuth } from '../../hooks'
 import { singularOrPlural } from '../../utils'
 
-const FooterWithOrderAndButtons = ({ buttons, history, location }) => {
+function FooterWithOrderAndButtons ({ buttons, history, location }) {
   const { userInfo } = useAuth()
 
-  const { pizzaSize } = location.state
+  const { pizzaSize, pizzaFlavours } = location.state
   const { flavours, name, slices } = pizzaSize
+
+  console.log('pizzaFlavours:', pizzaFlavours)
 
   return (
     <Grid container>
@@ -21,17 +24,19 @@ const FooterWithOrderAndButtons = ({ buttons, history, location }) => {
         <Typography>
           <b>{userInfo.user.firstName}, seu pedido é:</b>
         </Typography>
+
         <Typography>
           Pizza <b>{name.toUpperCase()}</b> {'- '}
           ({slices} {singularOrPlural(slices, 'fatia', 'fatias')}, {' '}
-          {flavours} {singularOrPlural(flavours, 'sabor', 'sabores')})</Typography>
+          {flavours} {singularOrPlural(flavours, 'sabor', 'sabores')})
+        </Typography>
 
-          {pizzaFlavours && (
-            <Typography>
-              {singularOrPlural(pizzaFlavours.length, 'no sabor', 'nos sabores')} {' '}
-              <b>{pizzaFlavours.map((name) => name).join(', ')}</b>
-            </Typography>
-          )}
+        {pizzaFlavours && (
+          <Typography>
+            {singularOrPlural(pizzaFlavours.length, 'no sabor', 'nos sabores')}{' '}
+            <b>{pizzaFlavours.map(({ name }) => name).join(', ')}</b>
+          </Typography>
+        )}
       </OrderContainer>
 
       <ButtonsContainer>
@@ -44,10 +49,20 @@ const FooterWithOrderAndButtons = ({ buttons, history, location }) => {
           }}
         />
 
-        <Button {...buttons.action} color='primary' component={Link} />
+        <Button
+          {...buttons.action}
+          component={Link}
+          color='primary'
+        />
       </ButtonsContainer>
     </Grid>
   )
+}
+
+FooterWithOrderAndButtons.propTypes = {
+  buttons: t.object.isRequired,
+  history: t.object.isRequired,
+  location: t.object.isRequired
 }
 
 const OrderContainer = styled(Grid).attrs({
@@ -57,6 +72,7 @@ const OrderContainer = styled(Grid).attrs({
     flex-grow: 1;
   }
 `
+
 const ButtonsContainer = styled(Grid).attrs({
   item: true
 })`
@@ -67,10 +83,11 @@ const ButtonsContainer = styled(Grid).attrs({
 `
 
 const Button = styled(MaterialButton).attrs({
-  variant: 'contained',
+  variant: 'contained'
 })`
   && {
     margin-left: ${({ theme }) => theme.spacing(2)}px;
   }
 `
+
 export default withRouter(FooterWithOrderAndButtons)

@@ -1,14 +1,8 @@
-import React from 'react'
-import { Typography } from '@material-ui/core'
-import styled from 'styled-components'
-
-const Title = styled(Typography).attrs({
-  gutterBottom: true,
-  align: true
-})``
-
-export const H3 = (props) => <Title variant='h3' {...props} />
-export const H4 = (props) => <Title variant='h4' {...props} />
-export const H6 = (props) => <Title variant='h6' {...props} />
-
-export default Title
+export { default as CardLink } from './card-link'
+export { default as Content } from './content'
+export { default as Divider } from './divider'
+export { default as Footer } from './footer/footer'
+export { default as HeaderContent } from './header-content'
+export { default as OrderInfo } from './order-info'
+export { default as PizzasGrid } from './pizzas-grid'
+export { default as Title, H3, H4, H6 } from './title'

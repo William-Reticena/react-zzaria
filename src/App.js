@@ -41,10 +41,10 @@ const App = ({ location }) => {
   if (!isUserLoggedIn && location.pathname !== LOGIN)
     return <Redirect to={LOGIN} />
 
-  // if (isUserLoggedIn)
-  //   console.log('usuario logado')
-  //   if (location.pathname === '/login')
-  //     return <Redirect to='/' />
+  if (isUserLoggedIn)
+    console.log('usuario logado')
+    if (location.pathname === '/login')
+      return <Redirect to='/' />
 
   return (
     <Suspense fallback={<LinearProgress />}>

@@ -1,5 +1,2 @@
-function singularOrPlural (amount, singular, plural) {
-  return amount === 1 ? singular : plural
-}
-
-export default singularOrPlural
+export { default as singularOrPlural } from './singular-or-plural'
+export { default as toMoney } from './to-money'

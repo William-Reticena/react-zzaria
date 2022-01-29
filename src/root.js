@@ -1,11 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import { BrowserRouter, Route } from 'react-router-dom';
 // import MainPage from './pages/main'
 // import Login from './pages/login'
-import { CssBaseline, createTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core';
-import AuthProvider from './contexts/auth';
-import OrderProvider from './contexts/order';
+import {
+  CssBaseline,
+  createTheme,
+  ThemeProvider as MuiThemeProvider
+} from '@material-ui/core';
+import { AuthProvider, OrderProvider } from './contexts';
 import App from './App'
 
 const theme = createTheme({
@@ -15,7 +18,7 @@ const theme = createTheme({
 })
 
 const Root = () => (
-  <MuiThemeProvider>
+  <MuiThemeProvider theme={theme}>
     <ThemeProvider theme={theme}>
       <AuthProvider>
         <OrderProvider>

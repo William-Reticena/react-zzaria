@@ -3,15 +3,14 @@ import styled from 'styled-components'
 import { Route, Switch } from 'react-router-dom'
 import {
   AppBar,
-  Toolbar as MaterialToobar,
+  Toolbar as MaterialToolbar
 } from '@material-ui/core'
-import HeaderCommon from '../../pages/main/header-common'
+import HeaderCommon from './header-common'
 import HeaderCheckout from './header-checkout'
 import { CHECKOUT } from '../../routes'
 
-const Header = () => {
-  return (
-    <AppBar>
+const Header = () => (
+  <AppBar>
     <Toolbar>
       <Switch>
         <Route path={CHECKOUT} component={HeaderCheckout} />
@@ -19,10 +18,9 @@ const Header = () => {
       </Switch>
     </Toolbar>
   </AppBar>
-  )
-}
+)
 
-const Toolbar = styled(MaterialToobar)`
+const Toolbar = styled(MaterialToolbar)`
   && {
     margin: 0 auto;
     max-width: ${({ theme }) => theme.breakpoints.values.lg}px;
